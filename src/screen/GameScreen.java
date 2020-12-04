@@ -157,11 +157,33 @@ public class GameScreen extends Screen {
 	public final int run() {
 		super.run();
 
-		this.score.addPlayer1Value(LIFE_SCORE * (this.lives.getPlayer1Value() - 1));
-		this.logger.info("Screen cleared with a score of " + this.score + " for Player1");
-		if(this.playerCode == 2){
-			this.score.addPlayer2Value(LIFE_SCORE * (this.lives.getPlayer2Value() - 1));
-			this.logger.info("Screen cleared with a score of " + this.score + "for Player2");
+		if (this.playerCode == 1) { // In player 1 mode, score changes per lives after each stage
+			if (lives.getPlayer1Value() > 0) {//when you're alive
+				this.score.addPlayer1Value(LIFE_SCORE * (this.lives.getPlayer1Value() - 1));
+				this.logger.info("Screen cleared with a score of " + this.score.getPlayer1Value() + " for Player1");
+			}
+			else { //when you're dead.
+				this.score.addPlayer1Value(-100);
+				this.logger.info("Game ended with a score of " + this.score.getPlayer1Value() + " for Player1");
+			}
+		}
+		else if (this.playerCode == 2) { //In player 2 mode, score changes per lives after each stage
+			if (lives.getPlayer1Value() > 0) {
+				this.score.addPlayer1Value(LIFE_SCORE * (this.lives.getPlayer1Value() - 1));
+				this.logger.info("Screen cleared with a score of " + this.score.getPlayer1Value() + "for Player1");
+			}
+			if (lives.getPlayer2Value() > 0) {
+				this.score.addPlayer2Value(LIFE_SCORE * (this.lives.getPlayer2Value() - 1));
+				this.logger.info("Screen cleared with a score of " + this.score.getPlayer2Value() + "for Player2");
+			}
+			if (lives.getPlayer1Value() <= 0 && lives.getPlayer2Value() <= 0) {
+				this.score.addPlayer1Value(-100);
+				this.logger.info("Game ended with a score of " + this.score.getPlayer1Value() + " for Player1");
+				this.score.addPlayer2Value(-100);
+				this.logger.info("Game ended with a score of " + this.score.getPlayer2Value() + " for Player2");
+			}
+
+
 		}
 
 		return this.returnCode;
@@ -362,7 +384,8 @@ public class GameScreen extends Screen {
 
 	private void manageCollisions() {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
-		for (Bullet bullet : this.bullets)
+		for (Bullet bullet : this.bullets) {
+			this.logger.info("bullet name : " + bullet.getName());
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship1) && !this.levelFinished) { //player1 being collided
 					recyclable.add(bullet);
@@ -374,7 +397,7 @@ public class GameScreen extends Screen {
 					}
 				}
 
-				if (playerCode == 2 && checkCollision(bullet, this.ship2) && !this.levelFinished){ //player2 being collided
+				if (playerCode == 2 && checkCollision(bullet, this.ship2) && !this.levelFinished) { //player2 being collided
 					recyclable.add(bullet);
 					if (!this.ship2.isDestroyed()) {
 						this.ship2.destroy();
@@ -393,17 +416,17 @@ public class GameScreen extends Screen {
 								this.score.addPlayer1Value(enemyShip.getPointValue());
 								this.shipsDestroyed.addPlayer1Value(1);
 							}
-						}
-						else if (playerCode == 2) {
+						} else if (playerCode == 2) {
 							// Two person play - Doubles score - (Two people, but same amount of enemy ships)
 							if (bullet.getName().equals("ship1")) { // if player1's bullet collide with enemy ship
 								this.score.addPlayer1Value(enemyShip.getPointValue());
 								this.score.addPlayer1Value(enemyShip.getPointValue());
+								this.logger.info("Player 1 get " + 2 * enemyShip.getPointValue() + "points.");
 								this.shipsDestroyed.addPlayer1Value(1);
-							}
-							else if (bullet.getName().equals("ship2")) { // if player2's bullet collide with enemy ship
+							} else if (bullet.getName().equals("ship2")) { // if player2's bullet collide with enemy ship
 								this.score.addPlayer2Value(enemyShip.getPointValue());
 								this.score.addPlayer2Value(enemyShip.getPointValue());
+								this.logger.info("Player 2 get " + 2 * enemyShip.getPointValue() + "points.");
 								this.shipsDestroyed.addPlayer2Value(1);
 							}
 						}
@@ -413,18 +436,22 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					if(bullet.getName().equals("ship1")){
+					if (bullet.getName().equals("ship1")) {
 						this.score.addPlayer1Value(this.enemyShipSpecial.getPointValue());
 						this.shipsDestroyed.addPlayer1Value(1);
-					}if(bullet.getName().equals("ship2")) {
+						this.logger.info("Player 1 get " + this.enemyShipSpecial.getPointValue() + "points.");
+					}
+					if (bullet.getName().equals("ship2")) {
 						this.score.addPlayer2Value(this.enemyShipSpecial.getPointValue());
 						this.shipsDestroyed.addPlayer2Value(1);
+						this.logger.info("Player 2 get " + this.enemyShipSpecial.getPointValue() + "points.");
 					}
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bullet);
 				}
 			}
+		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
 	}
