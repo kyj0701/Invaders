@@ -284,7 +284,8 @@ public final class Core {
 										gameState.getShipsDestroyed(),
 										playerCode);
 
-							} while (gameState.getLivesRemaining().getPlayer1Value() > 0
+							} while ((gameState.getLivesRemaining().getPlayer1Value() > 0
+									|| gameState.getLivesRemaining().getPlayer2Value() > 0)
 									&& gameState.getLevel() <= NUM_LEVELS);
 
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -321,8 +322,11 @@ public final class Core {
 										gameState.getShipsDestroyed(),
 										playerCode);
 
-							} while (gameState.getLivesRemaining().getPlayer1Value() > 0
-									&& gameState.getLevel() <= NUM_LEVELS);
+							} while (
+									(gameState.getLivesRemaining().getPlayer1Value() > 0
+									|| gameState.getLivesRemaining().getPlayer2Value() > 0)
+									&& gameState.getLevel() <= NUM_LEVELS
+							);
 
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 									+ " score screen at " + FPS + " fps, with a score of "
@@ -358,8 +362,11 @@ public final class Core {
 										gameState.getShipsDestroyed(),
 										playerCode);
 
-							} while (gameState.getLivesRemaining().getPlayer1Value() > 0
-									&& gameState.getLevel() <= NUM_LEVELS);
+							} while (
+									(gameState.getLivesRemaining().getPlayer1Value() > 0
+									|| gameState.getLivesRemaining().getPlayer2Value() > 0)
+									&& gameState.getLevel() <= NUM_LEVELS
+							);
 
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 									+ " score screen at " + FPS + " fps, with a score of "
