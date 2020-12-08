@@ -17,7 +17,6 @@ public class Bullet extends Entity {
 	 * positive is down.
 	 */
 	private int speed;
-	private String name;
 
 	/**
 	 * Constructor, establishes the bullet's properties.
@@ -32,10 +31,9 @@ public class Bullet extends Entity {
 	 * @param name
 	 *            Text for those that shoot this bullet.
 	 */
-	public Bullet(final int positionX, final int positionY, final int speed, final String name) {
+	public Bullet(final int positionX, final int positionY, final int speed) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 
-		this.name = name;
 		this.speed = speed;
 		setSprite();
 	}
@@ -81,7 +79,4 @@ public class Bullet extends Entity {
 	 *
 	 * @return Name of shooter of this bullet.
 	 */
-	public final String getName() {
-		return this.name;
-	}
 }

@@ -215,7 +215,7 @@ public class GameScreen extends Screen {
 						this.ship1.moveLeft();
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						if (this.ship1.shoot(this.bullets, "ship1"))
+						if (this.ship1.shoot(this.bullets))
 							this.bulletsShot.addPlayer1Value(1);
 				}
 			} else if(playerCode == 2){ //When you are playing two players mode.
@@ -235,7 +235,7 @@ public class GameScreen extends Screen {
 						this.ship1.moveLeft();
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						if (this.ship1.shoot(this.bullets, "ship1"))
+						if (this.ship1.shoot(this.bullets))
 							this.bulletsShot.addPlayer1Value(1);
 				}
 
@@ -255,7 +255,7 @@ public class GameScreen extends Screen {
 						this.ship2.moveLeft();
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_ENTER))
-						if (this.ship2.shoot(this.bullets, "ship2"))
+						if (this.ship2.shoot(this.bullets))
 							this.bulletsShot.addPlayer2Value(1);
 				}
 			}
@@ -385,7 +385,6 @@ public class GameScreen extends Screen {
 	private void manageCollisions() {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
 		for (Bullet bullet : this.bullets) {
-			this.logger.info("bullet name : " + bullet.getName());
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship1) && !this.levelFinished) { //player1 being collided
 					recyclable.add(bullet);
@@ -412,23 +411,23 @@ public class GameScreen extends Screen {
 							&& checkCollision(bullet, enemyShip)) {
 						if (playerCode == 1) {
 							// Single play
-							if (bullet.getName().equals("ship1")) { // if player1's bullet collide with enemy ship
-								this.score.addPlayer1Value(enemyShip.getPointValue());
-								this.shipsDestroyed.addPlayer1Value(1);
-							}
+//							if (bullet.getName().equals("ship1")) { // if player1's bullet collide with enemy ship
+//								this.score.addPlayer1Value(enemyShip.getPointValue());
+//								this.shipsDestroyed.addPlayer1Value(1);
+//							}
 						} else if (playerCode == 2) {
 							// Two person play - Doubles score - (Two people, but same amount of enemy ships)
-							if (bullet.getName().equals("ship1")) { // if player1's bullet collide with enemy ship
-								this.score.addPlayer1Value(enemyShip.getPointValue());
-								this.score.addPlayer1Value(enemyShip.getPointValue());
-								this.logger.info("Player 1 get " + 2 * enemyShip.getPointValue() + "points.");
-								this.shipsDestroyed.addPlayer1Value(1);
-							} else if (bullet.getName().equals("ship2")) { // if player2's bullet collide with enemy ship
-								this.score.addPlayer2Value(enemyShip.getPointValue());
-								this.score.addPlayer2Value(enemyShip.getPointValue());
-								this.logger.info("Player 2 get " + 2 * enemyShip.getPointValue() + "points.");
-								this.shipsDestroyed.addPlayer2Value(1);
-							}
+//							if (bullet.getName().equals("ship1")) { // if player1's bullet collide with enemy ship
+//								this.score.addPlayer1Value(enemyShip.getPointValue());
+//								this.score.addPlayer1Value(enemyShip.getPointValue());
+//								this.logger.info("Player 1 get " + 2 * enemyShip.getPointValue() + "points.");
+//								this.shipsDestroyed.addPlayer1Value(1);
+//							} else if (bullet.getName().equals("ship2")) { // if player2's bullet collide with enemy ship
+//								this.score.addPlayer2Value(enemyShip.getPointValue());
+//								this.score.addPlayer2Value(enemyShip.getPointValue());
+//								this.logger.info("Player 2 get " + 2 * enemyShip.getPointValue() + "points.");
+//								this.shipsDestroyed.addPlayer2Value(1);
+//							}
 						}
 						this.enemyShipFormation.destroy(enemyShip);
 						recyclable.add(bullet);
@@ -436,16 +435,16 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					if (bullet.getName().equals("ship1")) {
-						this.score.addPlayer1Value(this.enemyShipSpecial.getPointValue());
-						this.shipsDestroyed.addPlayer1Value(1);
-						this.logger.info("Player 1 get " + this.enemyShipSpecial.getPointValue() + "points.");
-					}
-					if (bullet.getName().equals("ship2")) {
-						this.score.addPlayer2Value(this.enemyShipSpecial.getPointValue());
-						this.shipsDestroyed.addPlayer2Value(1);
-						this.logger.info("Player 2 get " + this.enemyShipSpecial.getPointValue() + "points.");
-					}
+//					if (bullet.getName().equals("ship1")) {
+//						this.score.addPlayer1Value(this.enemyShipSpecial.getPointValue());
+//						this.shipsDestroyed.addPlayer1Value(1);
+//						this.logger.info("Player 1 get " + this.enemyShipSpecial.getPointValue() + "points.");
+//					}
+//					if (bullet.getName().equals("ship2")) {
+//						this.score.addPlayer2Value(this.enemyShipSpecial.getPointValue());
+//						this.shipsDestroyed.addPlayer2Value(1);
+//						this.logger.info("Player 2 get " + this.enemyShipSpecial.getPointValue() + "points.");
+//					}
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bullet);
