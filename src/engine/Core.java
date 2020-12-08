@@ -34,28 +34,72 @@ public final class Core {
 	/** Total number of levels. */
 	private static final int NUM_LEVELS = 7;
 	
+	/** Difficulty settings for easy level 1. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_1 =
+			new GameSettings(3, 3, 60, 1000);
+	/** Difficulty settings for easy level 2. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_2 =
+			new GameSettings(3, 4, 50, 1500);
+	/** Difficulty settings for easy level 3. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_3 =
+			new GameSettings(4, 4, 40, 1500);
+	/** Difficulty settings for easy level 4. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_4 =
+			new GameSettings(4, 5, 30, 2000);
+	/** Difficulty settings for easy level 5. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_5 =
+			new GameSettings(5, 5, 20, 1500);
+	/** Difficulty settings for easy level 6. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_6 =
+			new GameSettings(6, 6, 10, 1500);
+	/** Difficulty settings for easy level 7. */
+	private static final GameSettings SETTINGS_EASY_LEVEL_7 =
+			new GameSettings(6, 6, 2, 1000);
+
+	/** Difficulty settings for medium level 1 */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_1 =
+			new GameSettings(4, 4, 60, 2500);
+	/** Difficulty settings for medium level 2. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_2 =
+			new GameSettings(5, 4, 50, 3000);
+	/** Difficulty settings for medium level 3. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_3 =
+			new GameSettings(5, 5, 40, 2000);
+	/** Difficulty settings for medium level 4. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_4 =
+			new GameSettings(6, 5, 30, 2000);
+	/** Difficulty settings for medium level 5. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_5 =
+			new GameSettings(6, 6, 20, 1500);
+	/** Difficulty settings for medium level 6. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_6 =
+			new GameSettings(7, 6, 10, 1500);
+	/** Difficulty settings for medium level 7. */
+	private static final GameSettings SETTINGS_MEDIUM_LEVEL_7 =
+			new GameSettings(8, 7, 2, 1000);
+
 	/** Difficulty settings for level 1. */
-	private static final GameSettings SETTINGS_LEVEL_1 =
-			new GameSettings(5, 4, 60, 2000);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_1 =
+			new GameSettings(4, 5, 70, 3000);
 	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2 =
-			new GameSettings(5, 5, 50, 2500);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_2 =
+			new GameSettings(4, 6, 65, 2500);
 	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3 =
-			new GameSettings(6, 5, 40, 1500);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_3 =
+			new GameSettings(4, 6, 60, 2000);
 	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4 =
-			new GameSettings(6, 6, 30, 1500);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_4 =
+			new GameSettings(5, 6, 55, 2000);
 	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5 =
-			new GameSettings(7, 6, 20, 1000);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_5 =
+			new GameSettings(6, 7, 50, 2000);
 	/** Difficulty settings for level 6. */
-	private static final GameSettings SETTINGS_LEVEL_6 =
-			new GameSettings(7, 7, 10, 1000);
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_6 =
+			new GameSettings(7, 7, 45, 2000);
 	/** Difficulty settings for level 7. */
-	private static final GameSettings SETTINGS_LEVEL_7 =
-			new GameSettings(8, 7, 2, 500);
-	
+	private static final GameSettings SETTINGS_DIFFICULT_LEVEL_7 =
+			new GameSettings(8, 7, 40, 2000);
+
 	/** Frame to draw the screen on. */
 	private static Frame frame;
 	/** Screen currently shown. */
@@ -100,15 +144,6 @@ public final class Core {
 		DrawManager.getInstance().setFrame(frame);
 		int width = frame.getWidth();
 		int height = frame.getHeight();
-
-		gameSettings = new ArrayList<GameSettings>();
-		gameSettings.add(SETTINGS_LEVEL_1);
-		gameSettings.add(SETTINGS_LEVEL_2);
-		gameSettings.add(SETTINGS_LEVEL_3);
-		gameSettings.add(SETTINGS_LEVEL_4);
-		gameSettings.add(SETTINGS_LEVEL_5);
-		gameSettings.add(SETTINGS_LEVEL_6);
-		gameSettings.add(SETTINGS_LEVEL_7);
 		
 		GameState gameState;
 
@@ -127,6 +162,7 @@ public final class Core {
 					break;
 				case 2:
 					// Game & score.
+					gameSettings = new ArrayList<GameSettings>();
 					currentScreen = new PlayerSelectScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " player select screen at " + FPS + " fps.");
@@ -147,6 +183,13 @@ public final class Core {
 
 					if (playerCode == 1) {
 						if (difficultyCode == 1) {
+							gameSettings.add(SETTINGS_EASY_LEVEL_1);
+							gameSettings.add(SETTINGS_EASY_LEVEL_2);
+							gameSettings.add(SETTINGS_EASY_LEVEL_3);
+							gameSettings.add(SETTINGS_EASY_LEVEL_4);
+							gameSettings.add(SETTINGS_EASY_LEVEL_5);
+							gameSettings.add(SETTINGS_EASY_LEVEL_6);
+							gameSettings.add(SETTINGS_EASY_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
@@ -184,6 +227,13 @@ public final class Core {
 							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_2);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_3);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_4);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_5);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_6);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
@@ -221,6 +271,13 @@ public final class Core {
 							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 3) {
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_1);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_2);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_3);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_4);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_5);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_6);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
@@ -261,6 +318,13 @@ public final class Core {
 					}
 					else if (playerCode == 2) {
 						if (difficultyCode == 1) {
+							gameSettings.add(SETTINGS_EASY_LEVEL_1);
+							gameSettings.add(SETTINGS_EASY_LEVEL_2);
+							gameSettings.add(SETTINGS_EASY_LEVEL_3);
+							gameSettings.add(SETTINGS_EASY_LEVEL_4);
+							gameSettings.add(SETTINGS_EASY_LEVEL_5);
+							gameSettings.add(SETTINGS_EASY_LEVEL_6);
+							gameSettings.add(SETTINGS_EASY_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
@@ -299,6 +363,13 @@ public final class Core {
 							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_2);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_3);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_4);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_5);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_6);
+							gameSettings.add(SETTINGS_MEDIUM_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
@@ -339,6 +410,13 @@ public final class Core {
 							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 3) {
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_1);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_2);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_3);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_4);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_5);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_6);
+							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_7);
 							do {
 								// One extra live every few levels.
 								boolean bonusLife = gameState.getLevel()
