@@ -1,0 +1,53 @@
+# JARAM2020SE Invaders CI workflow script
+
+name: Build and Release
+
+# Controls when the action will run. 
+on:
+  push:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '14.0.1'
+          java-package: jdk
+          architecture: x64
+      
+      
+      - name: Compile Java file to 'out' directory
+        run: javac ./src/engine/*.java ./src/entity/*.java ./src/screen/*.java -d ./out
+
+      - name: Download font to resource folder
+        uses: wei/wget@v1
+        with:
+          args: -O ./res/font.ttf https://github.com/Taewan-P/Invaders/blob/mirror/res/font.ttf?raw=true
+
+      - name: Copy resource file to compliled folder
+        run: cp -R res/. ./out
+      
+      - name: Make an executable jar file
+        run: jar cvfm invaders.jar ./src/META-INF/MANIFEST.MF -C ./out/ .
+
+      - name: Upload jar file to releases
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./invaders.jar
+          asset_name: invaders.jar
+          tag: Stable-${{ github.ref }}
+          overwrite: true 
+          body: "Up to date release of stable version. Please do not mind the release date. This tag automatically updates files to latest version."
