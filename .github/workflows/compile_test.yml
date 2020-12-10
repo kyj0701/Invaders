@@ -1,0 +1,28 @@
+# Compile Test
+
+name: Compile Test
+on:
+  # Triggers the workflow on only pull request events for master and feature branch
+  pull_request:
+    branches:
+      - master
+      - feature
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '14.0.1'
+          java-package: jdk
+          architecture: x64
+      
+      - name: Check for compile errors
+        run: javac ./src/engine/*.java ./src/entity/*.java ./src/screen/*.java -d ./out
