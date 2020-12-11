@@ -108,11 +108,27 @@ public class ScoreScreen extends Screen {
 
 		draw();
 		if (this.inputDelay.checkFinished()) {
-			if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-				// Next page.
-				this.isRunning = false;
-				if (this.isNewRecord)
-					saveScore();
+			if (playerCode == 1) {
+				if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+					// Return to main menu.
+					this.returnCode = 1;
+					this.isRunning = false;
+					if (this.isNewRecord)
+						saveScore();
+				} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+					// Play again.
+					this.returnCode = 2;
+					this.isRunning = false;
+					if (this.isNewRecord)
+						saveScore();
+				}
+			} else if (playerCode == 2) {
+				if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+					// Next page.
+					this.isRunning = false;
+					if (this.isNewRecord)
+						saveScore();
+				}
 			}
 
 			if (this.isNewRecord && this.selectionCooldown.checkFinished()) {
@@ -168,7 +184,10 @@ public class ScoreScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 
-		drawManager.drawSwitchScoreScreen(this, this.inputDelay.checkFinished(), this.isNewRecord);
+		if (playerCode == 1)
+			drawManager.drawGameOver(this, this.inputDelay.checkFinished(), this.isNewRecord);
+		else if (playerCode == 2)
+			drawManager.drawSwitchScoreScreen(this, this.inputDelay.checkFinished(), this.isNewRecord);
 
 		drawManager.drawResults(this, this.score.getPlayer1Value(), this.livesRemaining.getPlayer1Value(),
 				this.shipsDestroyed.getPlayer1Value(), (float) this.shipsDestroyed.getPlayer1Value()
