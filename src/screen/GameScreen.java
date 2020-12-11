@@ -154,9 +154,8 @@ public class GameScreen extends Screen {
 	 *
 	 * @return Next screen code.
 	 */
-	public final int run() {
+	public final int run() throws InterruptedException {
 		super.run();
-
 		if (this.playerCode == 1) { // In player 1 mode, score changes per lives after each stage
 			if (lives.getPlayer1Value() > 0) {//when you're alive
 				this.score.addPlayer1Value(LIFE_SCORE * (this.lives.getPlayer1Value() - 1));
@@ -385,7 +384,7 @@ public class GameScreen extends Screen {
 	private void manageCollisions() {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
 		for (Bullet bullet : this.bullets) {
-			this.logger.info("bullet name : " + bullet.getName());
+//			this.logger.info("bullet name : " + bullet.getName());
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship1) && !this.levelFinished) { //player1 being collided
 					recyclable.add(bullet);

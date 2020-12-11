@@ -121,7 +121,7 @@ public final class Core {
 	 * @param args
 	 *            Program args, ignored.
 	 */
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws InterruptedException {
 		try {
 			LOGGER.setUseParentHandlers(false);
 
