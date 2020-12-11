@@ -79,4 +79,11 @@ public class Bullet extends Entity {
 	 *
 	 * @return Name of shooter of this bullet.
 	 */
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
