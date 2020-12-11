@@ -45,7 +45,7 @@ public class HighScoreScreen extends Screen {
 	 * 
 	 * @return Next screen code.
 	 */
-	public final int run() {
+	public final int run() throws InterruptedException {
 		super.run();
 
 		return this.returnCode;
