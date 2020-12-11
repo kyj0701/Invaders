@@ -48,6 +48,8 @@ public class Screen {
 
 	protected int difficultyCode;
 
+	protected int resetCode;
+
 	protected boolean isPaused;
 
 	/**
@@ -73,6 +75,7 @@ public class Screen {
 		this.returnCode = 0;
 		this.playerCode = 0;
 		this.difficultyCode = 0;
+		this.resetCode = 0;
 	}
 
 	/**
@@ -97,8 +100,9 @@ public class Screen {
 			this.logger.info("KEYBOARD STATUS : " + this.isPaused);
 			if (this.isPaused) {
 				while (this.isPaused) {
-					this.isPaused = !inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
-					Thread.sleep(1000);
+					if(inputManager.isKeyDown(KeyEvent.VK_S))
+						this.isPaused = false;
+					Thread.sleep(100);
 					this.logger.info("KEYBOARD STATUS INSIDE: " + this.isPaused);
 				}
 				this.isPaused = false;
