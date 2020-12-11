@@ -17,6 +17,7 @@ public class Bullet extends Entity {
 	 * positive is down.
 	 */
 	private int speed;
+	private String name;
 
 	/**
 	 * Constructor, establishes the bullet's properties.
