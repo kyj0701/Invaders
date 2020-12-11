@@ -31,9 +31,10 @@ public class Bullet extends Entity {
 	 * @param name
 	 *            Text for those that shoot this bullet.
 	 */
-	public Bullet(final int positionX, final int positionY, final int speed) {
+	public Bullet(final int positionX, final int positionY, final int speed, final String name) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 
+		this.name = name;
 		this.speed = speed;
 		setSprite();
 	}
