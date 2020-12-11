@@ -453,6 +453,8 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							LOGGER.info("Closing score screen.");
 							break;
