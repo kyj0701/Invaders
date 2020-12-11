@@ -223,8 +223,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
 							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
@@ -267,8 +268,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 3) {
 							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_1);
@@ -311,8 +313,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						}
 					}
@@ -359,8 +362,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
 							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
@@ -406,6 +410,8 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							LOGGER.info("Closing score screen.");
 							break;
