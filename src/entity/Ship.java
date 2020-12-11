@@ -70,11 +70,11 @@ public class Ship extends Entity {
 	 *            Name of shooter of this bullet.
 	 * @return Checks if the bullet was shot correctly.
 	 */
-	public final boolean shoot(final Set<Bullet> bullets, final String name) {
+	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED, name));
+					positionY, BULLET_SPEED));
 			return true;
 		}
 		return false;
