@@ -81,8 +81,7 @@ public class ScoreScreen extends Screen {
 			this.highScores = Core.getFileManager().loadHighScores();
 			if (highScores.size() < MAX_HIGH_SCORE_NUM
 					|| highScores.get(highScores.size() - 1).getScore()
-					< this.score.getPlayer1Value() || highScores.get(highScores.size() - 1).getScore()
-					< this.score.getPlayer2Value())
+					< this.score.getPlayer1Value())
 				this.isNewRecord = true;
 
 		} catch (IOException e) {
@@ -109,15 +108,8 @@ public class ScoreScreen extends Screen {
 
 		draw();
 		if (this.inputDelay.checkFinished()) {
-			if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
-				// Return to main menu.
-				this.returnCode = 1;
-				this.isRunning = false;
-				if (this.isNewRecord)
-					saveScore();
-			} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-				// Play again.
-				this.returnCode = 2;
+			if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+				// Next page.
 				this.isRunning = false;
 				if (this.isNewRecord)
 					saveScore();
@@ -157,7 +149,7 @@ public class ScoreScreen extends Screen {
 	 * Saves the score as a high score.
 	 */
 	private void saveScore() {
-		highScores.add(new Score(new String(this.p1name), Math.max(score.getPlayer1Value(), score.getPlayer2Value())));
+		highScores.add(new Score(new String(this.p1name), score.getPlayer1Value()));
 
 		Collections.sort(highScores);
 		if (highScores.size() > MAX_HIGH_SCORE_NUM)
@@ -176,25 +168,11 @@ public class ScoreScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 
-		drawManager.drawGameOver(this, this.inputDelay.checkFinished(),
-				this.isNewRecord);
+		drawManager.drawSwitchScoreScreen(this, this.inputDelay.checkFinished(), this.isNewRecord);
 
-		if (playerCode == 1) {
-			drawManager.drawResults(this, this.score.getPlayer1Value(), this.livesRemaining.getPlayer1Value(),
-					this.shipsDestroyed.getPlayer1Value(), (float) this.shipsDestroyed.getPlayer1Value()
-							/ this.bulletsShot.getPlayer1Value(), this.isNewRecord);
-		}
-		else if (playerCode == 2) {
-			drawManager.draw2PResults(this, this.score.getPlayer1Value(), this.score.getPlayer2Value(),
-										this.livesRemaining.getPlayer1Value(), this.livesRemaining.getPlayer2Value(),
-										this.shipsDestroyed.getPlayer1Value(), this.shipsDestroyed.getPlayer2Value(),
-								(float) this.shipsDestroyed.getPlayer1Value() / this.bulletsShot.getPlayer1Value(),
-								(float) this.shipsDestroyed.getPlayer2Value() / this.bulletsShot.getPlayer2Value(),
-										this.isNewRecord);
-		}
-		else {
-			logger.warning("Player Code Error on ScoreScreen");
-		}
+		drawManager.drawResults(this, this.score.getPlayer1Value(), this.livesRemaining.getPlayer1Value(),
+				this.shipsDestroyed.getPlayer1Value(), (float) this.shipsDestroyed.getPlayer1Value()
+						/ this.bulletsShot.getPlayer1Value(), this.isNewRecord);
 
 		if (this.isNewRecord)
 			drawManager.drawNameInput(this, this.p1name, this.nameCharSelected);
