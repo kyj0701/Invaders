@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -225,8 +226,6 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
-							frame.setScreen(currentScreen);
-							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							break;
 						} else if (difficultyCode == 2) {
@@ -270,8 +269,6 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
-							frame.setScreen(currentScreen);
-							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							break;
 						} else if (difficultyCode == 3) {
@@ -315,8 +312,6 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
-							frame.setScreen(currentScreen);
-							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							break;
 						}
@@ -475,9 +470,12 @@ public final class Core {
 						+ " score reset screen at " + FPS + " fps.");
 				resetCode = frame.setScreen(currentScreen);
 				if (resetCode == 1) {
-//					File scoreboard = new File(FileManager.class.getProtectionDomain()
-//							.getCodeSource().getLocation().getPath());
-//					scoreboard.delete();
+					List<Score> highScores = new ArrayList<Score>();
+					try {
+						getFileManager().saveHighScores(highScores);
+
+					}
+					catch (IOException e) { }
 				}
 				currentScreen = new TitleScreen(width, height, FPS);
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT

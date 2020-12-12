@@ -142,8 +142,7 @@ public final class FileManager {
 		BufferedReader reader = null;
 
 		try {
-			inputStream = FileManager.class.getClassLoader()
-					.getResourceAsStream("scores");
+			inputStream = FileManager.class.getClassLoader().getResourceAsStream("scores");
 			reader = new BufferedReader(new InputStreamReader(inputStream));
 
 			Score highScore = null;
