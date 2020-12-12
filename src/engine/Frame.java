@@ -53,7 +53,7 @@ public class Frame extends JFrame {
 	 *            Screen to show.
 	 * @return Return code of the finished screen.
 	 */
-	public final int setScreen(final Screen screen) {
+	public final int setScreen(final Screen screen) throws InterruptedException {
 		currentScreen = screen;
 		currentScreen.initialize();
 		return currentScreen.run();

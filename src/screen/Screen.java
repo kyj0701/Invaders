@@ -1,6 +1,7 @@
 package screen;
 
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -47,6 +48,10 @@ public class Screen {
 
 	protected int difficultyCode;
 
+	protected int resetCode;
+
+	protected boolean isPaused;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -70,6 +75,7 @@ public class Screen {
 		this.returnCode = 0;
 		this.playerCode = 0;
 		this.difficultyCode = 0;
+		this.resetCode = 0;
 	}
 
 	/**
@@ -84,13 +90,27 @@ public class Screen {
 	 * 
 	 * @return Next screen code.
 	 */
-	public int run() {
+	public int run() throws InterruptedException {
 		this.isRunning = true;
+		this.isPaused = false;
 
 		while (this.isRunning) {
 			long time = System.currentTimeMillis();
-
-			update();
+			this.isPaused = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+			this.logger.info("KEYBOARD STATUS : " + this.isPaused);
+			if (this.isPaused) {
+				while (this.isPaused) {
+					if(inputManager.isKeyDown(KeyEvent.VK_S))
+						this.isPaused = false;
+					Thread.sleep(100);
+					this.logger.info("KEYBOARD STATUS INSIDE: " + this.isPaused);
+				}
+				this.isPaused = false;
+				continue;
+			}
+			else {
+				update();
+			}
 
 			time = (1000 / this.fps) - (System.currentTimeMillis() - time);
 			if (time > 0) {
