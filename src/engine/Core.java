@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -150,6 +151,7 @@ public final class Core {
 		int returnCode = 1;
 		int playerCode = 1;
 		int difficultyCode;
+		int resetCode;
 		do {
 			switch (returnCode) {
 				case 1:
@@ -223,8 +225,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
 							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
@@ -267,8 +270,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 3) {
 							gameSettings.add(SETTINGS_DIFFICULT_LEVEL_1);
@@ -311,8 +315,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						}
 					}
@@ -359,8 +364,9 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing score screen.");
 							break;
 						} else if (difficultyCode == 2) {
 							gameSettings.add(SETTINGS_MEDIUM_LEVEL_1);
@@ -406,6 +412,8 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							LOGGER.info("Closing score screen.");
 							break;
@@ -453,12 +461,31 @@ public final class Core {
 									+ gameState.getBulletsShot() + " bullets shot and "
 									+ gameState.getShipsDestroyed() + " ships destroyed.");
 							currentScreen = new ScoreScreen(width, height, FPS, gameState);
+							frame.setScreen(currentScreen);
+							currentScreen = new Player2ScoreScreen(width, height, FPS, gameState);
 							returnCode = frame.setScreen(currentScreen);
 							LOGGER.info("Closing score screen.");
 							break;
 						}
 					}
 			case 3:
+				// Reset High Score.
+				currentScreen = new ScoreResetSelectScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " score reset screen at " + FPS + " fps.");
+				resetCode = frame.setScreen(currentScreen);
+				if (resetCode == 1) {
+//					File scoreboard = new File(FileManager.class.getProtectionDomain()
+//							.getCodeSource().getLocation().getPath());
+//					scoreboard.delete();
+				}
+				currentScreen = new TitleScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " title screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing reset score screen.");
+				break;
+			case 4:
 				// High scores.
 				currentScreen = new HighScoreScreen(width, height, FPS);
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
