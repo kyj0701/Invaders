@@ -720,4 +720,9 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, noString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
+
+	public void drawPausedMessage(final Screen screen, final String string) {
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, string,screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+	}
 }

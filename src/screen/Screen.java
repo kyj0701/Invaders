@@ -50,7 +50,6 @@ public class Screen {
 
 	protected int resetCode;
 
-	protected boolean isPaused;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -92,7 +91,6 @@ public class Screen {
 	 */
 	public int run() {
 		this.isRunning = true;
-		this.isPaused = false;
 
 		while (this.isRunning) {
 			long time = System.currentTimeMillis();
