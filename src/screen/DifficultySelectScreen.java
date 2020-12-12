@@ -44,7 +44,7 @@ public class DifficultySelectScreen extends Screen {
 	 * 
 	 * @return Next screen code.
 	 */
-	public final int run() throws InterruptedException {
+	public final int run() {
 		super.run();
 
 		return this.difficultyCode;

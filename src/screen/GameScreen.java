@@ -154,8 +154,9 @@ public class GameScreen extends Screen {
 	 *
 	 * @return Next screen code.
 	 */
-	public final int run() throws InterruptedException {
+	public final int run() {
 		super.run();
+
 		if (this.playerCode == 1) { // In player 1 mode, score changes per lives after each stage
 			if (lives.getPlayer1Value() > 0) {//when you're alive
 				this.score.addPlayer1Value(LIFE_SCORE * (this.lives.getPlayer1Value() - 1));

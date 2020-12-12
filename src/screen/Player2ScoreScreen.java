@@ -94,7 +94,7 @@ public class Player2ScoreScreen extends Screen {
      *
      * @return Next screen code.
      */
-    public final int run() throws InterruptedException {
+    public final int run() {
         super.run();
 
         return this.returnCode;
