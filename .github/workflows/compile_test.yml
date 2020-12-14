@@ -19,6 +19,9 @@ jobs:
           java-version: '1.8.0.242'
           java-package: jdk
           architecture: x64
+
+      - name: Create 'out' directory
+        run: mkdir out
       
       - name: Check for compile errors
         run: javac ./src/engine/*.java ./src/entity/*.java ./src/screen/*.java -d ./out

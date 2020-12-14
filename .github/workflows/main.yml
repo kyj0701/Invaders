@@ -19,6 +19,8 @@ jobs:
           java-package: jdk
           architecture: x64
       
+      - name: Create 'out' directory
+        run: mkdir out
       
       - name: Compile Java file to 'out' directory
         run: javac ./src/engine/*.java ./src/entity/*.java ./src/screen/*.java -d ./out
