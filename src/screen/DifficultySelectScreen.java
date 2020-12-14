@@ -1,9 +1,9 @@
 package screen;
 
-import java.awt.event.KeyEvent;
-
 import engine.Cooldown;
 import engine.Core;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Implements the title screen.
@@ -11,29 +11,30 @@ import engine.Core;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class TitleScreen extends Screen {
+public class DifficultySelectScreen extends Screen {
 
 	/** Milliseconds between changes in user selection. */
 	private static final int SELECTION_TIME = 200;
-	
+
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
-	 * 
+	 *
 	 * @param width
+	 *
 	 *            Screen width.
 	 * @param height
 	 *            Screen height.
 	 * @param fps
 	 *            Frames per second, frame rate at which the game is run.
 	 */
-	public TitleScreen(final int width, final int height, final int fps) {
+	public DifficultySelectScreen(final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 		// Defaults to play.
-		this.returnCode = 2;
+		this.difficultyCode = 1;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 	}
@@ -46,7 +47,7 @@ public class TitleScreen extends Screen {
 	public final int run() {
 		super.run();
 
-		return this.returnCode;
+		return this.difficultyCode;
 	}
 
 	/**
@@ -77,24 +78,20 @@ public class TitleScreen extends Screen {
 	 * Shifts the focus to the next menu item.
 	 */
 	private void nextMenuItem() {
-		if (this.returnCode == 4)
-			this.returnCode = 0;
-		else if (this.returnCode == 0)
-			this.returnCode = 2;
+		if (this.difficultyCode == 3)
+			this.difficultyCode = 1;
 		else
-			this.returnCode++;
+			this.difficultyCode++;
 	}
 
 	/**
 	 * Shifts the focus to the previous menu item.
 	 */
 	private void previousMenuItem() {
-		if (this.returnCode == 0)
-			this.returnCode = 4;
-		else if (this.returnCode == 2)
-			this.returnCode = 0;
+		if (this.difficultyCode == 1)
+			this.difficultyCode = 3;
 		else
-			this.returnCode--;
+			this.difficultyCode--;
 	}
 
 	/**
@@ -103,8 +100,8 @@ public class TitleScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 
-		drawManager.drawTitle(this);
-		drawManager.drawMenu(this, this.returnCode);
+		drawManager.drawDifficultyTitle(this);
+		drawManager.drawDifficultyMenu(this, this.difficultyCode);
 
 		drawManager.completeDrawing(this);
 	}

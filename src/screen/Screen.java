@@ -1,6 +1,7 @@
 package screen;
 
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -45,6 +46,11 @@ public class Screen {
 
 	protected int playerCode;
 
+	protected int difficultyCode;
+
+	protected int resetCode;
+
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -67,6 +73,8 @@ public class Screen {
 		this.inputDelay.reset();
 		this.returnCode = 0;
 		this.playerCode = 0;
+		this.difficultyCode = 0;
+		this.resetCode = 0;
 	}
 
 	/**
@@ -88,7 +96,6 @@ public class Screen {
 			long time = System.currentTimeMillis();
 
 			update();
-
 			time = (1000 / this.fps) - (System.currentTimeMillis() - time);
 			if (time > 0) {
 				try {
