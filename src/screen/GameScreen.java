@@ -208,7 +208,9 @@ public class GameScreen extends Screen {
 					if (this.inputManager.isKeyDown(KeyEvent.VK_F1))
 						isPaused = false;
 					Thread.sleep(100);
-				} catch (InterruptedException e) { }
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
 			}
 
 			if(playerCode == 1){ //When you are playing one player mode.
